@@ -51,7 +51,8 @@ const submitForm = () => {
         (error) => {
           console.error(error);
           if (error.code === error.PERMISSION_DENIED) {
-        alert('Localização é necessária para enviar o formulário.')
+        alert('Localização é necessária para enviar o formulário.');
+        location.reload();
           } else {
           alert("Não foi possível obter a localização.");
         }
