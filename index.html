@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkin - Checkout plantão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Bem vindo ao seu plantão</h1>
+    <h3>Preencha os seus dados para realizar o checkin</h3>
+
+    <form id="Checkin">
+        <label for="Name">Nome</label>
+        <input type="text" id="Name" placeholder="Nome Completo" autofocus required><br><br>
+        <label for="Telefone">Telefone</label>
+        <input type="tel" id="Telefone" placeholder="Seu Telefone" required><br><br>
+        <label for="gerente">Gerente</label>
+        <select name="gerente" id="geren" required>
+            <option value="aderbal">Aderbal</option>
+            <option value="lucas">Lucas</option>
+            <option value="andre">André</option>
+            <option value="cecilia">Cecilia</option>
+        </select><br><br>
+        <label for="checkType">Tipo:</label>
+        <select id="checkType" name="checkType" required>
+            <option value="checkin">Check-in</option>
+            <option value="checkout">Check-out</option>
+        </select><br><br>
+
+        <button type="button" onclick="submitForm()">Enviar</button>
+        <button type="button" id="stopButton" onclick="stopTracking()" style="display:none;">Parar Localização</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
