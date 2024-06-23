@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkin - Checkout plantão</title>
+    <link rel="shortcut icon" href="/img/cohabfvicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,6 +18,7 @@
         <input type="tel" id="Telefone" placeholder="Seu Telefone" required><br><br>
         <label for="gerente">Gerente</label>
         <select name="gerente" id="geren" required>
+            <option value="" disabled selected>Selecione o seu gerente</option>
             <option value="aderbal">Aderbal</option>
             <option value="lucas">Lucas</option>
             <option value="andre">André</option>
@@ -24,6 +26,7 @@
         </select><br><br>
         <label for="checkType">Tipo:</label>
         <select id="checkType" name="checkType" required>
+            <option value=""disabled selected>Selecione a opção</option>
             <option value="checkin">Check-in</option>
             <option value="checkout">Check-out</option>
         </select><br><br>
@@ -31,6 +34,12 @@
         <button type="button" onclick="submitForm()">Enviar</button>
         
     </form>
+
+    <footer> 
+        <p> <a href="https://www.cohabpremium.com.br/">Site da Cohab</a><br/>
+        <a href="https://cohabpremium.bitrix24.com.br/stream/">Bitrix24</a><br/></p>
+        <p><a class="footnote" href="https://eder-souza-developer.netlify.app/" target="_blank">Made with ❤️</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
