@@ -1,3 +1,7 @@
+let watchId;
+const SHEETDB_API_URL = "https://sheetdb.io/api/v1/qh12tcqrhadp3";
+const BEARER_TOKEN = "2ha8rdtnr0z7f1sqxby33t3864kphs6rw2kzrudq";
+
 const submitForm = () => {
   const name = document.getElementById("Name").value;
   const tel = document.getElementById("Telefone").value;
@@ -6,40 +10,56 @@ const submitForm = () => {
   const dateTime = new Date().toLocaleString();
 
   if (navigator.geolocation) {
-    if (checkType === "checkin") {
-      watchId = navigator.geolocation.watchPosition(
-        (position) => {
+    navigator.geolocation.getCurrentPosition(position => {
+
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
 
-          const values = [name, tel, geren, checkType, dateTime, latitude, longitude];
+          const data = {
+            data: [
+              {
+                name: name,
+                tel: tel,
+                gerente: geren,
+                checkType: checkType,
+                dateTime: dateTime,
+                latitude: latitude,
+                longitude: longitude,
+              },
+            ],
+          };
 
-          console.log(values)
+          fetch(SHEETDB_API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${BEARER_TOKEN}`,
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              alert('Formulário enviado com sucesso!')
+            })
+            .catch((error) => {
+              console.error("Erro:", error);
+              alert('Erro ao enviar o formulário.')
+            });
+
         },
         (error) => {
           console.error(error);
+          if (error.code === error.PERMISSION_DENIED) {
+        alert('Localização é necessária para enviar o formulário.')
+          } else {
           alert("Não foi possível obter a localização.");
         }
-      );
+  });
 
-      document.getElementById("stopButton").style.display = "block";
-      alert("Monitoramento de localização iniciado.");
-    } else {
-      stopTracking();
-      alert("Check-out realizado.");
-    }
   } else {
     alert("Geolocalização não é suportada pelo seu navegador.");
   }
-
-
 };
 
-const stopTracking = () => {
-    if (watchId) {
-        navigator.geolocation.clearWatch(watchId);
-        watchId = null;
-        document.getElementById('stopButton').style.display = 'none';
-        alert('Monitoramento de localização parado.')
-    }
-}
+
