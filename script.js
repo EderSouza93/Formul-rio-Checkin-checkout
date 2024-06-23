@@ -16,22 +16,13 @@ const submitForm = () => {
 
   //Verifica a permissão de geolocalização
   if(navigator.geolocation){
-  navigator.permissions.query({ name: "geolocation" }).then((PermissionStatus) => {
-      if (PermissionStatus.state === "granted" || PermissionStatus.state === "prompt") {
-        //Solicita a localização
-        navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition(position => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             submitData(name, tel, geren, checkType, dateTime, latitude, longitude);
           }, error => {
             handleGeolocationError(error);
           });
-      } else {
-        //Se a permissão foi negada, informa o usuário e recarrega a página
-        alert("Localização é necessária para enviar o formulário.");
-        location.reload();
-      }
-    });
 } else {
   alert('Geolocalização não é suportada pelo seu navegador.');
 }
@@ -74,8 +65,10 @@ const submitData = (name, tel, geren, checkType, dateTime, latitude, longitude) 
 const handleGeolocationError = (error) => {
   console.error(error);
   if(error.code === error.PERMISSION.DENIED) {
-    alert('Necessário permitir a localização para o envio do formulário.');
-    location.reload();
+    alert('Necessário permitir a localização para o envio do formulário. Por favor ative a permissão de localização nas configurações do seu navegador e recarregue a página.');
+    setTimeout(() => {
+      location.reload();
+    }, 5000);
   } else {
     alert('Não foi possivel obter a localização.')
   }
